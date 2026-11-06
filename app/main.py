@@ -13,6 +13,4 @@ def root():
     return {"message": "the server is now active"}
 
 
-@app.get("/health")
-def health():
-    return {"ok": True}
+
