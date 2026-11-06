@@ -66,4 +66,6 @@ jobs:
       - name: Installer les dépendances
         run: pip install -r requirements-dev.txt -r requirements.txt
       - name: Lancer les tests
+        env:
+            APP_NAME: "FastAPI Starter"
         run: pytest
