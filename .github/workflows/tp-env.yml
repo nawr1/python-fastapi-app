@@ -46,9 +46,9 @@ jobs:
 
       - name: Compute full version
         id: version
-        run: echo "full_version=${{ inputs.version }}-$(date +%F)" > $GITHUB_OUTPUT
+        run: |
+          echo "full_version=${{ inputs.version }}-$(date +%F)" > $GITHUB_OUTPUT
           echo "autre=xyz" > $GITHUB_OUTPUT
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
