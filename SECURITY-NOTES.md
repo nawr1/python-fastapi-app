@@ -12,3 +12,10 @@
 ## Q4. Le badge « créateur vérifié » garantit-il qu'une action est sûre ?
 
 Non. Le badge indique seulement que GitHub a vérifié l'identité de l'organisation ou de l'éditeur. Il ne garantit ni l'absence de vulnérabilités, ni la qualité du code, ni que le compte ne sera jamais compromis. Une action vérifiée peut contenir un bug ou être attaquée via ses dépendances. Il faut donc aussi relire le code source, épingler une version (idéalement un SHA), limiter les permissions du `GITHUB_TOKEN` et surveiller les mises à jour.
+
+## Q5. Deux vérifications avant d'utiliser une action d'un fournisseur inconnu en production
+
+1. **Relire le code source** de l'action (action.yml, src/, dépendances) pour repérer les appels réseau suspects, la lecture de secrets ou l'usage du GITHUB_TOKEN, et vérifier que le code compilé (dist/) correspond au source.
+2. **Évaluer la fiabilité du fournisseur et du dépôt** : identité du mainteneur, popularité (étoiles, forks), activité (commits, releases, issues traitées), politique de sécurité et historique de vulnérabilités.
+
+En complément : épingler l'action sur un SHA de commit complet, restreindre les permissions du GITHUB_TOKEN et tester d'abord dans un environnement isolé sans secrets de production.
