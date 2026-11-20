@@ -35,6 +35,17 @@ jobs:
           name: build-report
           path: report.txt
 
+  docker-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run docker hello
+        uses: ./.github/actions/docker-hello
+        with:
+          who: world
+
   verify:
     needs: build
     runs-on: ubuntu-latest
