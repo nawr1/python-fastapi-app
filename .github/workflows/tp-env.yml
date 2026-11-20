@@ -10,11 +10,17 @@ on:
       version:
         description: "Version à déployer"
         default: "1.0.0"
+      debug:
+        description: "Activer le mode debug"
+        type: boolean
+        default: false
 
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      full_version: ${{ steps.version.outputs.full_version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,7 +37,29 @@ jobs:
         run: |
           echo "Environment: ${{ inputs.environment }}"
           echo "Version: ${{ inputs.version }}"
-  
+      
+      - name: Print debug information
+        if: ${{ inputs.debug }}
+        run: |
+          echo "DEBUG activé"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Actor: $GITHUB_ACTOR"
+      
+      - name: Compute full version
+        id: version
+        run: echo "full_version=${{ inputs.version }}-$(date +%F)" >> $GITHUB_OUTPUT
+
+      deploy:
+        needs: build
+        steps:
+          - name: Show deployment target 
+            run: |
+              echo "Version complète : ${{ needs.build.outputs.full_version }}"
+              echo "Environnement : ${{ inputs.environment }}"
+
+
+
+
   verify-env:
     runs-on: ubuntu-latest
     steps:
