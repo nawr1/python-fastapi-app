@@ -1,0 +1,15 @@
+name: Greeting
+on:
+  workflow_call:
+    inputs:
+      recipient:
+        description: "Destinataire du message"
+        required: true
+        type: string
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print greeting
+        run: echo "Bonjour ${{ inputs.recipient }}"
